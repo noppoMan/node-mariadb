@@ -21,13 +21,13 @@ var dbname = 'dbname';
 var tablename = 'tablename';
 var indexname = nodeMaria.HandlerSocket.PRIMARY;
 
-client.on('connect', function(hs){
-    hs.openIndex(indexid, dbname, tablename, indexname, ['id', 'name', 'age']
-      , function(err, driver){
+client.on('connect', function(connection){
+    connection.openIndex(indexid, dbname, tablename, indexname, ['id', 'name', 'age']
+      , function(err, hs){
         
-        driver.native.find() 
+        hs.native.find(), hs.native.insert() etc...
            or 
-        driver.first(), driver.all()
+        hs.first(), hs.all(), hs.save() etc...
       
     });
 });
