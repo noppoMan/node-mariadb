@@ -1,4 +1,4 @@
 node-hs
 =========================
 
-node-handlersocket-client is a pure javascript client to handle mysql's handler socket api.
+node-mariadb is a pure javascript client of mariadb.
