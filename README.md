@@ -1,7 +1,7 @@
 node-mariadb
 =========================
 
-node-mariadb is a pure javascript client of mariadb.
+node-mariadb is a pure javascript client for mariadb.
 
 
 
@@ -22,19 +22,18 @@ var connection = nodeMaria.createConnection({
   }
 });
 
-var indexid = 1;
-var dbname = 'dbname';
-var tablename = 'tablename';
-var indexname = nodeMaria.HandlerSocket.PRIMARY;
-
 connection.on('connect', function(){
   console.log('connect');
 });
 
-
 connection.on('erorr', function(err){
   console.log(err);
 });
+
+var indexid = 1;
+var dbname = 'dbname';
+var tablename = 'tablename';
+var indexname = nodeMaria.HandlerSocket.PRIMARY;
 
 connection.openIndex(indexid, dbname, tablename, indexname, ['id', 'name', 'age']
   , function(err, hs){
