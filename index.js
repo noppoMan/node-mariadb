@@ -1,10 +1,19 @@
-var util = require('util')
-, net = require('net')
-, EventEmitter = require('events').EventEmitter
+var Connection = require('./lib/connection')
 ;
 
 
 exports.version = '0.1.1';
+
+//constants
+exports.DRIVER_TYPE_MYSQL_REGULAR_PROTOCOL = 'MysqlRegularPrtocol';
+exports.DRIVER_TYPE_HANDLER_SOCKET = 'HandlerSocket';
+
+
+exports._connectionPoolMap = {};
+
+var defaultDriverType = this.DRIVER_TYPE_MYSQL_REGULAR_PROTOCOL;
+exports.driverTypeList = [defaultDriverType, 'HandlerSocket'];
+
 
 
 function HandlerSocket(settings, options){
@@ -19,9 +28,6 @@ function HandlerSocket(settings, options){
   this.connection = null;
 }
 
-util.inhelits(HandlerSocket, EventEmitter);
-
-
 HandlerSocket.PRIMARY = 'PRIMARY';
 
 HandlerSocket.prototype.openIndex = function(indexId, dbName, tableName, indexName, columns, cb){
@@ -32,11 +38,8 @@ HandlerSocket.prototype.openIndex = function(indexId, dbName, tableName, indexNa
 
 }
 
-var defaultDriverType = 'MysqlRegularProtocol';
-exports.driverTypeList = [defaultDriverType, 'HandlerSocket'];
 
 exports.createConnection = function(settings){
-
   if(settings === undefined){
     settings = {};
   }
@@ -45,5 +48,5 @@ exports.createConnection = function(settings){
     settings.driverType = defaultDriverType;
   }
 
-  return new settings.driverType;
+  return new Connection(settings);
 }
