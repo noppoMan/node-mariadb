@@ -9,22 +9,32 @@ describe('Connection testing', function(){
 
     it('should connect mysql successfully to use handlersocket protocol.', function(){
 
-
-      var client = nodeMaria.createConnection({
+      var connection = nodeMaria.createConnection({
         driverType: nodeMaria.DRIVER_TYPE_HANDLER_SOCKET,
-        debug:true
+        host:'localhost',
+        port:9998,
+        options:
+        {
+          debug:true,
+          connectionAutoClose:false
+        }
       });
 
-      client.on('connect', function(){
+      connection.on('connect', function(){
         console.log('Connected successfully');
-
-        client.close();
-
       });
 
+      connection.on('error', function(err){
+        console.log(err);
+      });
+
+      connection.openIndex();
+
+      /*
       client.on('close', function(){
         console.log('close');
       });
+      */
 
 
     });
