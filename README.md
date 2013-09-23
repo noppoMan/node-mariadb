@@ -30,17 +30,20 @@ connection.on('erorr', function(err){
   console.log(err);
 });
 
-var indexid = 1;
 var dbname = 'dbname';
 var tablename = 'tablename';
 var indexname = nodeMaria.HandlerSocket.PRIMARY;
 
-connection.openIndex(indexid, dbname, tablename, indexname, ['id', 'name', 'age']
+connection.openIndex(dbname, tablename, indexname, ['id', 'name', 'age']
   , function(err, hs){
     
-    hs.native.find(), hs.native.insert() etc...
-       or 
-    hs.first(), hs.all(), hs.save() etc...
+    hs.find([1], {
+      limit:1
+    },function(err, data){
+      console.log(data);   =>  {id: '1', name: 'jack', age: '63'}
+    });
+  
+  });
   
 });
 </pre>
