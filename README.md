@@ -3,6 +3,10 @@ node-mariadb
 
 node-mariadb is a pure javascript client for mariadb.
 
+## Important!
+Node-mariadb is developing now.  
+So, We may have some bugs and problems.   
+You should not install this yet.  
 
 
 ## Usage
