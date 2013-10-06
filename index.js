@@ -30,6 +30,7 @@ exports.createConnection = function(settings){
   
   var Driver = require('./lib/driver/' + fileName);
   var driver = new Driver(settings, options);
+
   driver.usingAs = settings.driverType
 
   return driver;
