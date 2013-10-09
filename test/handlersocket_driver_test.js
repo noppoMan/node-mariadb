@@ -29,17 +29,21 @@ describe('Node-mariadb testing', function(){
 
       var con = nodeMaria.createConnection(settigs);
 
+        var expected = [
+          {
+            id: '1',
+            name: 'Jack'
+          }
+          ];
+
+        var expected2 = [
+          {
+            id: '2',
+            name: 'Tonny'
+          }
+        ];
+
       con.on('connect', function(){
-        var expected = {
-          id: '1',
-          name: 'Jack'
-        }
-
-        var expected2 = {
-          id: '2',
-          name: 'Tonny'
-        }      
-
         con.openIndex(
           'node_mariadb_test'
           , 'node_mariadb_hs_test'
@@ -60,8 +64,63 @@ describe('Node-mariadb testing', function(){
             hs.find([2], function(err, data){
               JSON.stringify(data).should.equal(JSON.stringify(expected2));
             });
-        });
+        });      
       });
     });
+
+    it('limit, offset options testing', function(){
+
+      var expected1 = [
+        {
+          id: '1',
+          div:'1',
+          name: 'Jack'
+        },
+        {
+          id: '2',
+          div:'1',
+          name: 'Tonny'
+        }
+      ];
+
+      var expected2 = [
+        {
+          id: '2',
+          div:'1',
+          name: 'Tonny'
+        }
+      ];
+
+
+      var con = nodeMaria.createConnection(settigs);
+
+      con.on('connect', function(){
+
+        con.openIndex(
+        'node_mariadb_test'
+        , 'node_mariadb_hs_test'
+        , 'div'
+        , ['id', 'div', 'name']
+        , function(err, hs){
+          hs.find([1], {limit:2}, function(err, data){
+            JSON.stringify(data).should.equal(JSON.stringify(expected1));
+          });
+        });
+
+
+       con.openIndex(
+        'node_mariadb_test'
+        , 'node_mariadb_hs_test'
+        , 'div'
+        , ['id', 'div', 'name']
+        , function(err, hs){
+          hs.find([1], {limit:1, offset:1}, function(err, data){
+            JSON.stringify(data).should.equal(JSON.stringify(expected2));
+          });
+        });
+
+
+      });
+    })
   });
 });
