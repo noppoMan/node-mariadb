@@ -2,14 +2,13 @@ var should = require('should')
 , nodeMaria = require('../index')
 ;
 
-var settigs = {
+var settings = {
   driverType: nodeMaria.DRIVER_TYPE_HANDLER_SOCKET,
   host:'localhost',
   port:9998,
   options:
   {
-    debug:true,
-    connectionAutoClose:false
+    debug:true
   }
 };
 
@@ -17,17 +16,45 @@ describe('Node-mariadb testing', function(){
 
   describe('Testing of HandlerSocket driver', function(){
 
-    it('Should connect handlersocket port successfully', function(){
-      var con = nodeMaria.createConnection(settigs);
+    it('Should connect handlersocket port successfully', function(done){
+      var con = nodeMaria.createConnection(settings);
       con.on('connect', function(){
         true.should.be.ok;
+        done();
       });
     });
 
+    it('Should catch close event when end() is called.', function(done){
+      var con = nodeMaria.createConnection(settings);
+      con.on('connect', function(){
+        con.close();
+      });
+      con.on('close', function(err){
+        true.should.be.ok;
+        done();
+      });
+    });
 
-    it('Should execute find method parallelly.', function(){
+    it('Should catch error event, if mariadb server is not responded.', function(done){
+      var con = nodeMaria.createConnection({
+        driverType: nodeMaria.DRIVER_TYPE_HANDLER_SOCKET,
+        host:'unknownhost',
+        port:9998,
+        options:
+        {
+          debug:true
+        }
+      });
 
-      var con = nodeMaria.createConnection(settigs);
+      con.on('error', function(err){
+        err.should.be.an.instanceof(Error)
+        done();
+      });
+    });
+
+    it('Should execute find method parallelly.', function(done){
+
+      var con = nodeMaria.createConnection(settings);
 
         var expected = [
             {
@@ -63,12 +90,14 @@ describe('Node-mariadb testing', function(){
           , function(err, hs){
             hs.find([2], function(err, data){
               JSON.stringify(data).should.equal(JSON.stringify(expected2));
+              done();
+              con.close();
             });
         });      
       });
     });
 
-    it('limit, offset options testing', function(){
+    it('Should get results with limit, offset options.', function(done){
 
       var expected1 = [
         {
@@ -91,7 +120,7 @@ describe('Node-mariadb testing', function(){
         }
       ];
 
-      var con = nodeMaria.createConnection(settigs);
+      var con = nodeMaria.createConnection(settings);
 
       con.on('connect', function(){
 
@@ -115,12 +144,14 @@ describe('Node-mariadb testing', function(){
         , function(err, hs){
           hs.find([1], {limit:1, offset:1}, function(err, data){
             JSON.stringify(data).should.equal(JSON.stringify(expected2));
+            done();
+            con.close();
           });
         });
       });     
     });
     
-    it('In clause testing', function(){
+    it('Should get results with findIn method', function(done){
 
       var expected1 = [
         {
@@ -135,11 +166,9 @@ describe('Node-mariadb testing', function(){
         }
       ];
 
-
-      var con = nodeMaria.createConnection(settigs);
+      var con = nodeMaria.createConnection(settings);
 
       con.on('connect', function(){
-
         con.openIndex(
         'node_mariadb_test'
         , 'node_mariadb_hs_test'
@@ -151,6 +180,8 @@ describe('Node-mariadb testing', function(){
               console.log(err);
             }
             JSON.stringify(data).should.equal(JSON.stringify(expected1));
+            done();
+            con.close();
           });
         });
       });
