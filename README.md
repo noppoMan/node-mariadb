@@ -11,7 +11,8 @@ But if someone who saw this project is interested in us please contact yuki@mike
 We welcome!
 
 ## Basic Sample of HandlerSocket Driver.
-<pre>
+
+```javascript
 var nodeMaria = require('node-mariadb');
 
 var connection = nodeMaria.createConnection({
@@ -43,13 +44,14 @@ connection.on('connect', function(){
     });
   });
 });
-</pre>
+```
 
 ## Api Reference
 
 ### find
 #### hs.find(Array fields, [Object options], Function callback&lt;error, Array data&gt;)
-<pre>
+
+```javascript
 connection.on('connect', function(){
   connection.openIndex('dbname', 'tablename', 'indexname', ['id', 'name', 'age']
   , function(err, hs){
@@ -58,13 +60,14 @@ connection.on('connect', function(){
     });
   });
 });
-</pre>
+```
 
 ----
 
 ### findIn
 #### hs.findIn(Array fields, [Object options], Function callback&lt;error, Array data&gt;)
-<pre>
+
+```javascript
 connection.on('connect', function(){
   connection.openIndex('dbname', 'tablename', 'indexname', ['id', 'name', 'age']
   , function(err, hs){
@@ -73,4 +76,4 @@ connection.on('connect', function(){
     });
   });
 });
-</pre>
+```
