@@ -4,17 +4,15 @@ node-mariadb
 node-mariadb is a pure javascript client for mariadb.
 
 ## Important!  
-Node-mariadb have been developing.  
+Node-mariadb has been developing.  
 So, We may have some bugs and problems which are not expected.  
 You should not install and use this yet.  
 But if someone who saw this project is interested in us please contact yuki@miketokyo.com.  
 We welcome!
 
-## Basic Sample
+## Basic Sample of HandlerSocket Driver.
 <pre>
-
 var nodeMaria = require('node-mariadb');
-
 
 var connection = nodeMaria.createConnection({
   driverType: nodeMaria.DRIVER_TYPE_HANDLER_SOCKET,
@@ -23,26 +21,25 @@ var connection = nodeMaria.createConnection({
   options:
   {
     debug:true,
-    connectionAutoClose:false
   }
-});
-
-connection.on('connect', function(){
-  console.log('connect');
 });
 
 connection.on('erorr', function(err){
   console.log(err);
+  process.exit(1);
 });
 
 var dbname = 'dbname';
 var tablename = 'tablename';
 var indexname = nodeMaria.HandlerSocket.PRIMARY;
 
-connection.openIndex(dbname, tablename, indexname, ['id', 'name', 'age']
-  , function(err, hs){
-    hs.find([1], {limit:1},function(err, data){
-      console.log(data);   =>  [{id: '1', name: 'Jack', age: '30'}]
+connection.on('connect', function(){
+  connection.openIndex(dbname, tablename, indexname, ['id', 'name', 'age']
+    , function(err, hs){
+      hs.find([1], {limit:1},function(err, data){
+        console.log(data);   =>  [{id: '1', name: 'Jack', age: '30'}]
+        connection.close();
+      });
     });
   });
 });
