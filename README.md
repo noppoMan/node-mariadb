@@ -7,7 +7,7 @@ node-mariadb is a pure javascript client for mariadb.
 Node-mariadb have been developing.  
 So, We may have some bugs and problems which are not expected.  
 You should not install and use this yet.  
-But if someone which saw this project is interested in us please contact yuki@miketokyo.com.  
+But if someone who saw this project is interested in us please contact yuki@miketokyo.com.  
 We welcome!
 
 ## Basic Sample
