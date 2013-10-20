@@ -30,10 +30,10 @@ describe('Node-mariadb testing', function(){
       var con = nodeMaria.createConnection(settigs);
 
         var expected = [
-          {
-            id: '1',
-            name: 'Jack'
-          }
+            {
+              id: '1',
+              name: 'Jack'
+            }
           ];
 
         var expected2 = [
@@ -91,7 +91,6 @@ describe('Node-mariadb testing', function(){
         }
       ];
 
-
       var con = nodeMaria.createConnection(settigs);
 
       con.on('connect', function(){
@@ -118,9 +117,44 @@ describe('Node-mariadb testing', function(){
             JSON.stringify(data).should.equal(JSON.stringify(expected2));
           });
         });
+      });     
+    });
+    
+    it('In clause testing', function(){
+
+      var expected1 = [
+        {
+          id: '1',
+          div:'1',
+          name: 'Jack'
+        },
+        {
+          id: '2',
+          div:'1',
+          name: 'Tonny'
+        }
+      ];
 
 
+      var con = nodeMaria.createConnection(settigs);
+
+      con.on('connect', function(){
+
+        con.openIndex(
+        'node_mariadb_test'
+        , 'node_mariadb_hs_test'
+        , nodeMaria.HandlerSocket.PRIMARY
+        , ['id', 'div', 'name']
+        , function(err, hs){
+          hs.findIn([1,2], {limit:2}, function(err, data){
+            if(err){
+              console.log(err);
+            }
+            JSON.stringify(data).should.equal(JSON.stringify(expected1));
+          });
+        });
       });
-    })
+    });
+
   });
 });
