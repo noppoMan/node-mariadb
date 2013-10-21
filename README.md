@@ -50,7 +50,15 @@ connection.on('connect', function(){
 
 ### find
 #### hs.find(Array fields, [Object options], Function callback&lt;error, Array data&gt;)
+find values by conditions.
 
+#### Arguments
+* `fields` : 
+* `options`:
+* `callback`: callback function.
+
+
+#### Usage
 ```javascript
 connection.on('connect', function(){
   connection.openIndex('dbname', 'tablename', 'indexname', ['id', 'name', 'age']
@@ -62,11 +70,27 @@ connection.on('connect', function(){
 });
 ```
 
+### find with filter
+
+```javascript
+connection.on('connect', function(){
+  connection.openIndex('dbname', 'tablename', 'indexname', ['id', 'name', 'age'], ['id']
+  , function(err, hs){
+    hs.find([1], {operator: '>', limit:1, filter:['id', '<=', 2]}, function(err, data){
+      console.log(data);   =>  [{id: '2', name: 'Tonny', age: '28'}]
+    });
+  });
+});
+```
+
 ----
+
 
 ### findIn
 #### hs.findIn(Array fields, [Object options], Function callback&lt;error, Array data&gt;)
 
+
+#### Usage
 ```javascript
 connection.on('connect', function(){
   connection.openIndex('dbname', 'tablename', 'indexname', ['id', 'name', 'age']
