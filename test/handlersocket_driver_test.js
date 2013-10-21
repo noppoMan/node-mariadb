@@ -187,5 +187,41 @@ describe('Node-mariadb testing', function(){
       });
     });
 
+
+
+    it('Should get results with filter', function(done){
+
+      var expected1 = [
+        {
+          id: '2',
+          div:'1',
+          name: 'Tonny'
+        }
+      ];
+
+      var con = nodeMaria.createConnection(settings);
+
+      con.on('connect', function(){
+        con.openIndex(
+        'node_mariadb_test'
+        , 'node_mariadb_hs_test'
+        , nodeMaria.HandlerSocket.PRIMARY
+        , ['id', 'div', 'name']
+        , ['id']
+        , function(err, hs){
+          hs.find([1], {operator: '>', limit:1, filter:['id', '<=', 2]}, function(err, data){
+            if(err){
+              console.log(err);
+            }
+
+            JSON.stringify(data).should.equal(JSON.stringify(expected1));
+            done();
+            con.close();
+          });
+        });
+      });
+    });
+
+
   });
 });
