@@ -1,0 +1,18 @@
+{
+	"read" : {  
+	"driverType": "HandlerSocket",
+	  "host": "localhost",
+	  "port": 9998,
+	  "auth": {"key": "hogehoge"},
+	  "options": {"debug": true},
+	  "dbName": "node_mariadb_test"
+	},
+	"write" : {  
+	"driverType": "HandlerSocket",
+	  "host": "localhost",
+	  "port": 9999,
+	  "auth": {"key": "fugafuga"},
+	  "options": {"debug": true},
+	  "dbName": "node_mariadb_test"
+	}
+}

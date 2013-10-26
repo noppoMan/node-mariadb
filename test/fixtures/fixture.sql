@@ -10,4 +10,6 @@ CREATE TABLE IF NOT EXISTS `node_mariadb_hs_test` (
 
 INSERT INTO `node_mariadb_hs_test` (`id`, `name`, `div`, `created`, `modified`) VALUES
 (1, 'Jack', 1, NOW(), NOW()),
-(2, 'Tonny', 1, NOW(), NOW());
+(2, 'Tonny', 1, NOW(), NOW()),
+(3, 'Chloe', 2, NOW(), NOW()),
+(4, 'Edgar', 1, NOW(), NOW());

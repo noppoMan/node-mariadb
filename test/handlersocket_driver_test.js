@@ -2,15 +2,27 @@ var should = require('should')
 , nodeMaria = require('../index')
 ;
 
+var driverType = nodeMaria.DRIVER_TYPE_HANDLER_SOCKET
+, host = 'localhost'
+;
+
 var settings = {
-  driverType: nodeMaria.DRIVER_TYPE_HANDLER_SOCKET,
-  host:'localhost',
+  driverType: driverType,
+  host: host,
   port:9998,
-  options:
-  {
-    debug:true
-  }
+  auth: {key: 'hogehoge'},
+  options: {debug: true}
 };
+
+var wsSettings = {
+  driverType: driverType,
+  host: host,
+  port:9999,
+  auth: {key: 'fugafuga'},
+  options: {debug: true}
+};
+
+
 
 describe('Node-mariadb testing', function(){
 
@@ -77,6 +89,9 @@ describe('Node-mariadb testing', function(){
           , nodeMaria.HandlerSocket.PRIMARY
           , ['id', 'name']
           , function(err, hs){
+            if(err)
+              throw err;
+
             hs.find([1], function(err, data){
               JSON.stringify(data).should.equal(JSON.stringify(expected));
             });
@@ -88,6 +103,9 @@ describe('Node-mariadb testing', function(){
           , nodeMaria.HandlerSocket.PRIMARY
           , ['id', 'name']
           , function(err, hs){
+            if(err)
+              throw err;
+
             hs.find([2], function(err, data){
               JSON.stringify(data).should.equal(JSON.stringify(expected2));
               done();
@@ -130,6 +148,9 @@ describe('Node-mariadb testing', function(){
         , 'div'
         , ['id', 'div', 'name']
         , function(err, hs){
+            if(err)
+              throw err;
+
           hs.find([1], {limit:2}, function(err, data){
             JSON.stringify(data).should.equal(JSON.stringify(expected1));
           });
@@ -142,6 +163,9 @@ describe('Node-mariadb testing', function(){
         , 'div'
         , ['id', 'div', 'name']
         , function(err, hs){
+            if(err)
+              throw err;
+
           hs.find([1], {limit:1, offset:1}, function(err, data){
             JSON.stringify(data).should.equal(JSON.stringify(expected2));
             done();
@@ -175,6 +199,9 @@ describe('Node-mariadb testing', function(){
         , nodeMaria.HandlerSocket.PRIMARY
         , ['id', 'div', 'name']
         , function(err, hs){
+            if(err)
+              throw err;
+
           hs.findIn([1,2], {limit:2}, function(err, data){
             if(err){
               console.log(err);
@@ -209,6 +236,9 @@ describe('Node-mariadb testing', function(){
         , ['id', 'div', 'name']
         , ['id']
         , function(err, hs){
+            if(err)
+              throw err;
+
           hs.find([1], {operator: '>', limit:1, filter:['id', '<=', 2]}, function(err, data){
             if(err){
               console.log(err);
@@ -222,6 +252,34 @@ describe('Node-mariadb testing', function(){
       });
     });
 
+
+    it('Should insert values successfully.', function(done){
+
+      var expected1 = true;
+
+      var con = nodeMaria.createConnection(wsSettings);
+
+      con.on('connect', function(){
+        con.openIndex(
+        'node_mariadb_test'
+        , 'node_mariadb_hs_test'
+        , nodeMaria.HandlerSocket.PRIMARY
+        , ['id', 'div', 'name']
+        , function(err, hs){
+            if(err)
+              throw err;
+
+          hs.insert([3, 2, 'Chloe'], function(err, data){
+            if(err)
+              throw err;
+              
+            data.should.equal(expected1);
+            done();
+            con.close();
+          });
+        });
+      });
+    });
 
   });
 });
