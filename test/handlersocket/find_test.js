@@ -1,15 +1,20 @@
 var should = require('should')
 , nodeMaria = require('../../index')
+, testCase = require('../test_case')
 ;
 
 //read settings.
-var config = require('./config.json');
+var config = require('../config.json');
 
 describe('Node-mariadb find testing', function(){
 
-	beforeEach(function(){
+  before(function(done){
+    testCase.setup(done);
+  });
 
-	});
+  after(function(done){
+    testCase.tearDown(done);
+  });
 
   describe('#find()', function(){
 
@@ -41,7 +46,7 @@ describe('Node-mariadb find testing', function(){
           openIndex: [
             config.read.dbName
             , 'node_mariadb_hs_test'
-            , 'div'
+            , 'division'
             , ['id', 'name']
           ],
           find: [
@@ -67,7 +72,7 @@ describe('Node-mariadb find testing', function(){
           openIndex: [
             config.read.dbName
             , 'node_mariadb_hs_test'
-            , 'div'
+            , 'division'
             , ['id', 'name']
           ],
           find: [
@@ -104,9 +109,9 @@ describe('Node-mariadb find testing', function(){
           openIndex: [
             config.read.dbName
             , 'node_mariadb_hs_test'
-            , 'div'
-            , ['id', 'name', 'div']
-            , ['div']
+            , 'division'
+            , ['id', 'name', 'division']
+            , ['division']
           ],
           find: [
             [0], {operator: '>', limit:3, filter:['id', '<=', 1]}
@@ -117,17 +122,17 @@ describe('Node-mariadb find testing', function(){
           {
             id: '1',
             name: 'Jack',
-            div:1
+            division:1
           },      
           {
             id: '2',
             name: 'Tonny',
-            div:1
+            division:1
           },
           {
             id: '4',
             name: 'Edgar',
-            div:1
+            division:1
           }        
         ]
       },
@@ -138,7 +143,7 @@ describe('Node-mariadb find testing', function(){
             config.read.dbName
             , 'node_mariadb_hs_test'
             , nodeMaria.HandlerSocket.PRIMARY
-            , ['id', 'name', 'div']
+            , ['id', 'name', 'division']
           ],
           find: [
             [1], {operator: '>', limit:1, filter:['id', '<=', 2]}
@@ -153,7 +158,7 @@ describe('Node-mariadb find testing', function(){
             config.read.dbName
             , 'node_mariadb_hs_test'
             , nodeMaria.HandlerSocket.PRIMARY
-            , ['id', 'name', 'div']
+            , ['id', 'name', 'division']
           ],
           find: [
             1, {operator: '>', limit:1, filter:['id', '<=', 2]}
@@ -167,12 +172,12 @@ describe('Node-mariadb find testing', function(){
           openIndex: [
             config.read.dbName
             , 'node_mariadb_hs_test'
-            , 'div'
-            , ['id', 'name', 'div']
-            , ['div']
+            , 'division'
+            , ['id', 'name', 'division']
+            , ['division']
           ],
           find: [
-            [0], {operator: '>', limit:3, while: ['div', '<=', 1]}
+            [0], {operator: '>', limit:3, while: ['division', '<=', 1]}
           ]
         },
         expected: 
@@ -180,17 +185,17 @@ describe('Node-mariadb find testing', function(){
           {
             id: '1',
             name: 'Jack',
-            div:1
+            division:1
           },      
           {
             id: '2',
             name: 'Tonny',
-            div:1
+            division:1
           },
           {
             id: '4',
             name: 'Edgar',
-            div:1
+            division:1
           }        
         ]
       }    

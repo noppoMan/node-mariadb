@@ -7,10 +7,13 @@
   "description": "",
   "version": "0.1.1",
   "dependencies": {
-    "mysql": "*",
     "async": "*"
   },
   "devDependencies": {
-    "should": "*"
-  }
+    "should": "*",
+    "mysql": "*"
+  },
+  "scripts": {
+    "test": "find ./test -name *_test.js | xargs mocha --reporter spec"
+  },
 }

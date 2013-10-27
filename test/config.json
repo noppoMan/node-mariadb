@@ -14,5 +14,11 @@
 	  "auth": {"key": "fugafuga"},
 	  "options": {"debug": true},
 	  "dbName": "node_mariadb_test"
+	},
+	"mysqld":{
+		"host": "localhost",
+		"user": "root",
+		"password": "",
+		"database": "node_mariadb_test"
 	}
 }
