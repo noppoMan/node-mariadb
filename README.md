@@ -218,3 +218,10 @@ Decrement data to '-' options num.
 <pre>
 $ npm test
 </pre>
+
+
+## License
+
+(The MIT License)
+
+Copyright (c) 2013 Yuki Takei(Noppoman) <yuki@miketokyo.com>
