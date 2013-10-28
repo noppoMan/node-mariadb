@@ -24,7 +24,7 @@ describe('Node-mariadb Handlersocket.update testing', function(){
           config.read.dbName
           , 'node_mariadb_hs_test'
           , nodeMaria.HandlerSocket.PRIMARY
-          , ['id', 'name']
+          , ['id', 'name', 'division']
         ],
         update: [
           [1], {set: [1, 'John', 1]}
@@ -65,24 +65,7 @@ describe('Node-mariadb Handlersocket.update testing', function(){
       },
       config:'write',
       expected: 3
-    },
-    //TODO 値にvalidationをかけてerrorにすること
-    {
-      title: 'Should .',
-      args:{
-        openIndex: [
-          config.read.dbName
-          , 'node_mariadb_hs_test'
-          , 'division'
-          , ['division']
-        ],
-        update: [
-          [1], {set: [null]}
-        ]
-      },
-      config:'write',
-      expected: 1
-    }    
+    }
   ]
 
   dataProvider.forEach(function(testData){
@@ -149,6 +132,38 @@ describe('Node-mariadb Handlersocket.delete testing', function(){
       expected: 1
     },
     {
+      title: 'Should successfully delete multiple data with in option.',
+      args:{
+        openIndex: [
+          config.read.dbName
+          , 'node_mariadb_hs_test'
+          , nodeMaria.HandlerSocket.PRIMARY
+          , ['id']
+        ],
+        delete: [
+          [], {in:[1,2,3], limit:3}
+        ]
+      },
+      config:'write',
+      expected: 3
+    },    
+    {
+      title: 'Should successfully delete a data of id equals 1.',
+      args:{
+        openIndex: [
+          config.read.dbName
+          , 'node_mariadb_hs_test'
+          , nodeMaria.HandlerSocket.PRIMARY
+          , ['id']
+        ],
+        delete: [
+          [1]
+        ]
+      },
+      config:'write',
+      expected: 1
+    },    
+    {
       title: 'Should successfully delete multiple data with limit.',
       args:{
         openIndex: [
@@ -158,11 +173,28 @@ describe('Node-mariadb Handlersocket.delete testing', function(){
           , ['division']
         ],
         delete: [
-          [1, {limit: 3}]
+          [1], {limit: 3}
         ]
       },
       config:'write',
       expected: 3
+    },
+    {
+      title: 'Should successfully delete multiple data with filter.',
+      args:{
+        openIndex: [
+          config.read.dbName
+          , 'node_mariadb_hs_test'
+          , nodeMaria.HandlerSocket.PRIMARY
+          , ['id']
+          , ['id']
+        ],
+        delete: [
+          [1], {operator:'>', limit: 2, filter:['id', '<=', 3]}
+        ]
+      },
+      config:'write',
+      expected: 2
     }    
   ]
 
