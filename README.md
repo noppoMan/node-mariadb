@@ -1,7 +1,8 @@
 node-mariadb
 =========================
 
-Node-mariadb is a pure javascript client for mariadb.
+Node-mariadb is a pure javascript client for mariadb.  
+Our goal is supporting almost functions of mariadb.
 
 <b>Node-mariadb currentyly supported only HandlerSocket Driver(ver 0.1.1).</b>
 
@@ -119,17 +120,98 @@ connection.on('connect', function(){
 ## HandlerSocket
 
 
-### find
-#### hs.find(Array fields, [Object options], Function callback&lt;error, Array data&gt;)
-find values by conditions.
+### Find
+#### hs.find(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+Find rows by values and options.
 
 #### Arguments
-* `fields` : 
+* `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
 * `options`: 
+ - limit: num , offset: num
+ - operator: `=`,`>`,`>=`,`<`and`<=`
+ - filter: ['indexname', 'operator', 'value']
+ - while: ['indexname', 'operator', 'value']
 * `callback`: callback function.
 
+----
+
+### Insert
+#### hs.insert(Mix values, [Object options], Function callback&lt;Object error, Bool isSuccess&gt;)
+Insert row.
+
+#### Arguments
+* `values` : [value1, value2, ... ]
+* `callback`: callback function.
 
 ----
+
+### Update
+#### hs.update(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+Update rows by values and options.  
+Update arguments are similar to find. A only different option is set which is used to set update values like as update clause of sql.
+
+#### Arguments
+* `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
+* `options`: 
+ - set: [value1, value2, .... ]
+ - limit: num , offset: num
+ - operator: `=`,`>`,`>=`,`<`and`<=`
+ - filter: ['indexname', 'operator', 'value']
+ - while: ['indexname', 'operator', 'value']
+* `callback`: callback function.
+
+----
+
+
+### Delete
+#### hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+Delete row by values and options. It arguments are same as find.
+
+#### Arguments
+* `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
+* `options`: 
+ - limit: num , offset: num
+ - operator: `=`,`>`,`>=`,`<`and`<=`
+ - filter: ['indexname', 'operator', 'value']
+ - while: ['indexname', 'operator', 'value']
+* `callback`: callback function.
+
+----
+
+### Increment
+#### hs.increment(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+Increment data to '+' options num.
+
+#### Arguments
+* `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
+* `options`: 
+ - '+': num
+ - limit: num , offset: num
+ - operator: `=`,`>`,`>=`,`<`and`<=`
+ - filter: ['indexname', 'operator', 'value']
+ - while: ['indexname', 'operator', 'value']
+* `callback`: callback function.
+
+----
+
+### Decrement
+#### hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+Decrement data to '-' options num.
+
+#### Arguments
+* `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
+* `options`: 
+ - '-': num
+ - limit: num , offset: num
+ - operator: `=`,`>`,`>=`,`<`and`<=`
+ - filter: ['indexname', 'operator', 'value']
+ - while: ['indexname', 'operator', 'value']
+* `callback`: callback function.
+
+----
+
+
+
 
 
 ## Run Test
