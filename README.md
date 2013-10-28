@@ -210,6 +210,13 @@ Decrement data to '-' options num.
 
 ----
 
+### ModifierGets
+hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+
 
 
 
