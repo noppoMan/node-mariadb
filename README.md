@@ -157,6 +157,8 @@ open index to prepare to handle records.
  5. optional [An array of column names use for filter or while filter.]
 * `callback`: Callback function
 
+----
+
 ### Find
 #### hs.find(Any values, [Object options], Function callback&lt;Object error, Array data&gt;)
 Find records by values and options.
