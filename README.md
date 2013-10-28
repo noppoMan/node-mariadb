@@ -6,7 +6,7 @@ Our goal is supporting almost functions and protocols of mariadb.
 
 <b>The latest version of node-mariadb supported only HandlerSocket Driver(ver 0.1.1).</b>
 
-## Supported protocol and function.
+## Supported protocols and functions.
 * HandlerSocket
 
 ### Future  (Not implemented yet)
