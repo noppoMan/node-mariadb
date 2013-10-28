@@ -7,7 +7,7 @@ var should = require('should')
 //read settings.
 var config = require('../config.json');
 
-describe('Node-mariadb insert testing', function(){
+describe('Node-mariadb  Handlersocket.insert testing', function(){
 
   before(function(done){
     testCase.setup(done);

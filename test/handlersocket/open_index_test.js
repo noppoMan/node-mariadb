@@ -6,7 +6,7 @@ var should = require('should')
 //read settings.
 var config = require('../config.json');
 
-describe('Node-mariadb openIndex testing', function(){
+describe('Node-mariadb Handlersocket.openIndex testing', function(){
 
   before(function(done){
     testCase.setup(done);
