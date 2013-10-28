@@ -2,9 +2,9 @@ node-mariadb
 =========================
 
 Node-mariadb is a pure javascript client for mariadb.  
-Our goal is supporting almost functions of mariadb.
+Our goal is supporting almost functions and protocols of mariadb.
 
-<b>Node-mariadb currentyly supported only HandlerSocket Driver(ver 0.1.1).</b>
+<b>The latest version of node-mariadb supported only HandlerSocket Driver(ver 0.1.1).</b>
 
 ## Supported protocol and function.
 * HandlerSocket
@@ -114,15 +114,52 @@ connection.on('connect', function(){
 
 #### nodeMaria.createConnection(Object settings, [Object options)
 
+#### Arguments
+* `settings`: 
+ - driverType: A driver type name. Currently suppoerted only HandlerSocket.
+ - host: A host name or address for mariadb server.
+ - port: A port number for mariadb server.
+ - auth: {key: 'Your authnetication key'}
+* `options`: Options(debug, logging, etc...). (Not implemented yet.)
 
+----
 
+### Constants
+##### nodeMaria.DRIVER_TYPE_MYSQL_REGULAR_PROTOCOL
+##### nodeMaria.DRIVER_TYPE_HANDLER_SOCKET
+
+----
+
+### Events
+#### connect 
+Emitted when a connection is established.
+
+#### error 
+Emitted when an error is occured.
+
+####close
+Emitted when a connection is closed.
+
+----
 
 ## HandlerSocket
 
+### openIndex
+#### con.openIndex(Array config, Function callback&lt;Object error, Object Index&gt;)
+open index to prepare to handle records.
+
+#### Arguments
+* `config`
+ 1. A database name
+ 2. A table name
+ 3. An index name. If you would like to use 'Primary', you can use constant of Handlersocket.PRIMARY.
+ 4. An array of column names.
+ 5. optional [An array of column names use for filter or while filter.]
+* `callback`: Callback function
 
 ### Find
-#### hs.find(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
-Find rows by values and options.
+#### hs.find(Any values, [Object options], Function callback&lt;Object error, Array data&gt;)
+Find records by values and options.
 
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
@@ -136,8 +173,8 @@ Find rows by values and options.
 ----
 
 ### Insert
-#### hs.insert(Mix values, [Object options], Function callback&lt;Object error, Bool isSuccess&gt;)
-Insert row.
+#### hs.insert(Any values, [Object options], Function callback&lt;Object error, Bool isSuccess&gt;)
+Insert record.
 
 #### Arguments
 * `values` : [value1, value2, ... ]
@@ -146,9 +183,9 @@ Insert row.
 ----
 
 ### Update
-#### hs.update(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+#### hs.update(Any values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
 Update rows by values and options.  
-Update arguments are similar to find. A only different option is set which is used to set update values like as update clause of sql.
+It arguments are similar to find. A only different is 'set' option which is used to set update values like as update clause of sql.
 
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
@@ -164,8 +201,8 @@ Update arguments are similar to find. A only different option is set which is us
 
 
 ### Delete
-#### hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
-Delete row by values and options. It arguments are same as find.
+#### hs.delete(Any values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
+Delete records by values and options. It arguments are same as find.
 
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
@@ -179,7 +216,7 @@ Delete row by values and options. It arguments are same as find.
 ----
 
 ### Increment
-#### hs.increment(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+#### hs.increment(Any values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
 Increment data to '+' options num.
 
 #### Arguments
@@ -195,7 +232,7 @@ Increment data to '+' options num.
 ----
 
 ### Decrement
-#### hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+#### hs.delete(Mix values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
 Decrement data to '-' options num.
 
 #### Arguments
@@ -210,13 +247,15 @@ Decrement data to '-' options num.
 
 ----
 
-### ModifierGets
-hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
-hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
-hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
-hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
-hs.delete(Mix values, [Object options], Function callback&lt;Object error, Array data&gt;)
+### [Modifier]Get
 
+[Modifier]Get behavior is same as normal modifier(Such as update, delete, increment and decrement).  
+But, their return values are not affected num but records which are contents of the records before modification.
+
+##### hs.updateGet(Any values, [Object options], Function callback&lt;Object error, Array beforeModRecords&gt;)
+##### hs.deleteGet(Any values, [Object options], Function callback&lt;Object error, Array beforeModRecords&gt;)
+##### hs.incrementGet(Any values, [Object options], Function callback&lt;Object error, Array beforeModRecords&gt;)
+##### hs.decrementGet(Any values, [Object options], Function callback&lt;Object error, Array beforeModRecords&gt;)
 
 
 
