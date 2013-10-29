@@ -1,5 +1,0 @@
-・heartbeat実装
-・filter,whileFilterの実装
-・findModifyの実装
-・insertの実装
-・認証の実装

@@ -3,20 +3,15 @@ var should = require('should')
 , fs = require('fs')
 , testCase = require('../test_case')
 ;
-
 //read settings.
 var config = require('../config.json');
-
 describe('Node-mariadb    Handlersocket.insert testing', function(){
-
     before(function(done){
         testCase.setup(done);
     });
-
     after(function(done){
         testCase.tearDown(done);
     });
-
     var dataProvider = [
         {
             title: 'Should successfully insert data.',
@@ -65,24 +60,17 @@ describe('Node-mariadb    Handlersocket.insert testing', function(){
             },
             config:'read',
             expected: Error
-        }         
+        }
     ]
-
     dataProvider.forEach(function(testData){
-
         it(testData.title, function(done){
-
             var con = nodeMaria.createConnection(config[testData.config]);
-
             //Kill a error to try not to catch by mocha.
             con.on('error', function(){});
-
             testData.args.openIndex.push(function(err, hs){
-
                 if(err) throw err;
-
                 var cb = function(err, data){
-                    if(err){                        
+                    if(err){
                         err.should.be.an.instanceOf(testData.expected);
                     }else{
                         should.deepEqual(data, testData.expected);
@@ -93,11 +81,9 @@ describe('Node-mariadb    Handlersocket.insert testing', function(){
                 testData.args.insert.push(cb);
                 hs.insert.apply(hs, testData.args.insert);
             });
-
             con.on('connect', function(){
                 con.openIndex.apply(con, testData.args.openIndex)
             });
         });
     });
-
 });

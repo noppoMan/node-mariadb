@@ -2,20 +2,15 @@ var should = require('should')
 , nodeMaria = require('../../index')
 , testCase = require('../test_case')
 ;
-
 //read settings.
 var config = require('../config.json');
-
 before(function(done){
     testCase.setup(done);
 });
-
 after(function(done){
     testCase.tearDown(done);
 });
-
 describe('Node-mariadb    Handlersocket.find testing()', function(){
-
 	var dataProvider = [
 		{
             title: 'Should successfully find single row with = operator',
@@ -30,7 +25,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [1]
                 ]
             },
-			expected: 
+			expected:
             [
                 {
                     id: '1',
@@ -51,7 +46,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [1], {operator: '>', limit: 3}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '2',
@@ -64,7 +59,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                 {
                     id: '4',
                     name: 'Edgar'
-                }             
+                }
             ]
         },
         {
@@ -80,7 +75,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [1], {operator: '>=', limit: 4}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '1',
@@ -97,7 +92,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                 {
                     id: '4',
                     name: 'Edgar'
-                }             
+                }
             ]
         },
         {
@@ -113,7 +108,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [4], {operator: '<', limit: 3}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '3',
@@ -142,7 +137,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [4], {operator: '<=', limit: 4}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '4',
@@ -161,7 +156,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     name: 'Jack'
                 }
             ]
-        },        
+        },
         {
             title: 'Should get error with illegal operator',
             args:{
@@ -176,7 +171,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                 ]
             },
             expected: Error
-        },        
+        },
         {
             title: 'Should successfully find values with limit.',
             args:{
@@ -191,7 +186,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     , {limit:2}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '1',
@@ -200,7 +195,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                 {
                     id: '2',
                     name: 'Tonny'
-                }                
+                }
             ]
         },
         {
@@ -217,7 +212,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     , {limit:1, offset:1}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '2',
@@ -253,7 +248,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     {in: [1, 2]}, {limit:2}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '1',
@@ -262,7 +257,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                 {
                     id: '2',
                     name: 'Tonny'
-                }                    
+                }
             ]
         },
         {
@@ -294,13 +289,13 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [0], {operator: '>', limit:3, filter:['id', '<=', 1]}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '1',
                     name: 'Jack',
                     division:1
-                },            
+                },
                 {
                     id: '2',
                     name: 'Tonny',
@@ -310,7 +305,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     id: '4',
                     name: 'Edgar',
                     division:1
-                }                
+                }
             ]
         },
         {
@@ -342,7 +337,7 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                 ]
             },
             expected: Error
-        },            
+        },
         {
             title: 'Should successfully find values with filter type W.',
             args:{
@@ -357,13 +352,13 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     [0], {operator: '>', limit:3, while: ['division', '<=', 1]}
                 ]
             },
-            expected: 
+            expected:
             [
                 {
                     id: '1',
                     name: 'Jack',
                     division:1
-                },            
+                },
                 {
                     id: '2',
                     name: 'Tonny',
@@ -373,24 +368,17 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     id: '4',
                     name: 'Edgar',
                     division:1
-                }                
+                }
             ]
-        }        
+        }
 	]
-
 	dataProvider.forEach(function(testData){
-
 		it(testData.title, function(done){
-
 			var con = nodeMaria.createConnection(config.read);
-
             //Kill a error to try not to catch by mocha.
             con.on('error', function(){});
-
             testData.args.openIndex.push(function(err, hs){
-
                 if(err) throw err;
-
                 var cb = function(err, data){
                     if(err){
                         err.should.be.an.instanceOf(testData.expected);
@@ -400,11 +388,9 @@ describe('Node-mariadb    Handlersocket.find testing()', function(){
                     con.close();
                     done();
                 };
-
                 testData.args.find.push(cb);
                 hs.find.apply(hs, testData.args.find);
             });
-
 			con.on('connect', function(){
                 con.openIndex.apply(con, testData.args.openIndex)
             });

@@ -1,5 +1,5 @@
 {
-	"read" : {  
+	"read" : {
 	"driverType": "HandlerSocket",
 	  "host": "localhost",
 	  "port": 9998,
@@ -7,7 +7,7 @@
 	  "options": {"debug": true},
 	  "dbName": "node_mariadb_test"
 	},
-	"write" : {  
+	"write" : {
 	"driverType": "HandlerSocket",
 	  "host": "localhost",
 	  "port": 9999,

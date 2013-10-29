@@ -2,20 +2,15 @@ var should = require('should')
 , nodeMaria = require('../../index')
 , testCase = require('../test_case')
 ;
-
 //read settings.
 var config = require('../config.json');
-
 describe('Node-mariadb Handlersocket.openIndex testing', function(){
-
     before(function(done){
         testCase.setup(done);
     });
-
     after(function(done){
         testCase.tearDown(done);
     });
-
     var dataProvider = [
         {
             title: 'Should successfully open index.',
@@ -78,16 +73,11 @@ describe('Node-mariadb Handlersocket.openIndex testing', function(){
             expected: Error
         }
     ]
-
     dataProvider.forEach(function(testData){
-
         it(testData.title, function(done){
-
             var con = nodeMaria.createConnection(config.read);
-
             //Kill a error to try not to catch by mocha.
             con.on('error', function(){});
-
             testData.args.openIndex.push(function(err, hs){
                 if(err){
                     err.should.be.an.instanceOf(testData.expected);
@@ -97,11 +87,9 @@ describe('Node-mariadb Handlersocket.openIndex testing', function(){
                 con.close();
                 done();
             });
-
             con.on('connect', function(){
                 con.openIndex.apply(con, testData.args.openIndex)
             });
         });
     });
-
 });
