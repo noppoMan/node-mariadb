@@ -7,6 +7,9 @@ Our goal is supporting almost functions and protocols of mariadb.
 
 <b>The latest version of node-mariadb supported only HandlerSocket Driver(ver 0.1.1).</b>
 
+[![Build Status](https://travis-ci.org/noppoMan/node-mariadb.png?branch=master)](https://travis-ci.org/noppoMan/node-mariadb)
+[![NPM version](https://badge.fury.io/js/node-mariadb.png)](http://badge.fury.io/js/node-mariadb)
+
 ## Supported protocols and functions.
 * HandlerSocket
 
