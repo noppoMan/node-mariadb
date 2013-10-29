@@ -1,0 +1,41 @@
+{
+  "name": "node-mariadb",
+  "description": "A pure javascript client for mariadb",
+  "version": "0.1.1",
+  "author": "noppoMan <yuki@miketokyo.com> (http://miketokyo.com)",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noppoMan/node-mariadb.git"
+  },
+  "main": "./index.js",
+  "homepage": "http://miketokyo.com",
+  "devDependencies": {
+    "should": "2.0.2",
+    "mysql": "2.0.0-alpha9",
+    "async": "0.2.9"
+  },
+  "keywords": [
+    "mariadb",
+    "handlersocket",
+    "non-blocking"
+  ],
+  "scripts": {
+    "test": "find ./test -name *_test.js | xargs mocha --reporter spec"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "bugs": {
+    "url": "https://github.com/noppoMan/node-mariadb/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "should": "~2.0.2",
+    "async": "~0.2.9",
+    "mysql": "~2.0.0-alpha9"
+  }
+}

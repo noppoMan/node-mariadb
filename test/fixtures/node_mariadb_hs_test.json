@@ -1,0 +1,30 @@
+[
+    {
+        "id":1,
+        "name": "Jack",
+        "division": 1,
+        "created": "2013-07-22 00:00:00",
+        "modified": "2013-07-22 00:00:00"
+    },
+    {
+        "id":2,
+        "name": "Tonny",
+        "division": 1,
+        "created": "2013-07-22 00:00:00",
+        "modified": "2013-07-22 00:00:00"
+    },
+    {
+        "id":3,
+        "name": "Chloe",
+        "division": 2,
+        "created": "2013-07-22 00:00:00",
+        "modified": "2013-07-22 00:00:00"
+    },
+    {
+        "id":4,
+        "name": "Edgar",
+        "division": 1,
+        "created": "2013-07-22 00:00:00",
+        "modified": "2013-07-22 00:00:00"
+    }
+]

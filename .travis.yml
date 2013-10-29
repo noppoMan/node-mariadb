@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '0.11'
+  - '0.10'
+  - '0.8'
+
+env:
+  - DB=mysql
+
+before_script:
+  - ./travis/install_handlersocket_plugin.sh
+  - mysql --version
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS node_mariadb_test;'
+  - mysql -D node_mariadb_test < test/setup.sql
