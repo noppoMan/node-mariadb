@@ -103,6 +103,14 @@ connection.on('connect', function(){
       console.log(affectedNum);   =>  1
     });
   });
+  
+  ### Delete
+  connection.openIndex('CTU', 'employee', nodeMaria.HandlerSocket.PRIMARY, ['id']
+  , function(err, hs){
+    hs.delete([1], function(err, affectedNum){
+      console.log(affectedNum);   =>  1
+    });
+  });
 
 });
 ```
@@ -112,7 +120,7 @@ connection.on('connect', function(){
 
 ### createConnection
 
-#### nodeMaria.createConnection(Object settings, [Object options)
+#### nodeMaria.createConnection(Object settings, [Object options])
 
 #### Arguments
 * `settings`: 
@@ -166,7 +174,8 @@ Find records by values and options.
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
 * `options`: 
- - limit: num , offset: num
+ - limit: num (default 1)
+ - offset: num (default 0)
  - operator: `=`,`>`,`>=`,`<`and`<=`
  - filter: ['indexname', 'operator', 'value']
  - while: ['indexname', 'operator', 'value']
@@ -175,7 +184,7 @@ Find records by values and options.
 ----
 
 ### Insert
-#### hs.insert(Any values, [Object options], Function callback&lt;Object error, Bool isSuccess&gt;)
+#### hs.insert(Array values, [Object options], Function callback&lt;Object error, Bool isSuccess&gt;)
 Insert record.
 
 #### Arguments
@@ -187,13 +196,14 @@ Insert record.
 ### Update
 #### hs.update(Any values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
 Update rows by values and options.  
-It arguments are similar to find. A only different is 'set' option which is used to set update values like as update clause of sql.
+It arguments are similar to find. A only different is 'set' option which is used to set updating values like as 'update' clause of sql.
 
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
 * `options`: 
- - set: [value1, value2, .... ]
- - limit: num , offset: num
+ - set(required): [value1, value2, .... ]
+ - limit: num (default 1)
+ - offset: num (default 0)
  - operator: `=`,`>`,`>=`,`<`and`<=`
  - filter: ['indexname', 'operator', 'value']
  - while: ['indexname', 'operator', 'value']
@@ -209,7 +219,8 @@ Delete records by values and options. It arguments are same as find.
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
 * `options`: 
- - limit: num , offset: num
+ - limit: num (default 1)
+ - offset: num (default 0)
  - operator: `=`,`>`,`>=`,`<`and`<=`
  - filter: ['indexname', 'operator', 'value']
  - while: ['indexname', 'operator', 'value']
@@ -219,13 +230,14 @@ Delete records by values and options. It arguments are same as find.
 
 ### Increment
 #### hs.increment(Any values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
-Increment data to '+' options num.
+Increment records '+' options num.
 
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
 * `options`: 
  - '+': num
- - limit: num , offset: num
+ - limit: num (default 1)
+ - offset: num (default 0)
  - operator: `=`,`>`,`>=`,`<`and`<=`
  - filter: ['indexname', 'operator', 'value']
  - while: ['indexname', 'operator', 'value']
@@ -234,14 +246,15 @@ Increment data to '+' options num.
 ----
 
 ### Decrement
-#### hs.delete(Mix values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
-Decrement data to '-' options num.
+#### hs.delete(Any values, [Object options], Function callback&lt;Object error, Number affectedNum&gt;)
+Decrement records '-' options num.
 
 #### Arguments
 * `values` : [value1, value2, ... ] or {in: [value1, value2, ... ]}
 * `options`: 
  - '-': num
- - limit: num , offset: num
+ - limit: num (default 1)
+ - offset: num (default 0)
  - operator: `=`,`>`,`>=`,`<`and`<=`
  - filter: ['indexname', 'operator', 'value']
  - while: ['indexname', 'operator', 'value']
